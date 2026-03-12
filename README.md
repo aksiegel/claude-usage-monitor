@@ -4,7 +4,7 @@ Two Chrome extensions that display your [Claude.ai](https://claude.ai) usage lim
 
 ![Chrome Extensions showing usage badges](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome) ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
-Repo: https://github.com/aksiegel/claude-usage-monitor
+Repo: [https://github.com/aksiegel/claude-usage-monitor](https://github.com/aksiegel/claude-usage-monitor)
 
 ---
 

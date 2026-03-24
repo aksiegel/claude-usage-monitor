@@ -1,5 +1,5 @@
 const FETCH_INTERVAL_MINUTES = 5;
-const BADGE_TYPE = 'session';
+const BADGE_TYPE = 'extra';
 
 async function getOrgId() {
   const cookie = await chrome.cookies.get({ url: 'https://claude.ai', name: 'lastActiveOrg' });

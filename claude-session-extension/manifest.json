@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Claude Session Limit",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Zeigt das Claude.ai 5-Stunden Session-Limit an",
   "permissions": ["alarms", "storage", "cookies"],
   "host_permissions": ["https://claude.ai/*"],

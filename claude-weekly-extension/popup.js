@@ -12,7 +12,7 @@ function formatTimeAgo(ts) {
   return `Vor ${Math.floor(diff / 3600)} Std. aktualisiert`;
 }
 
-function card(title, percent, resetText) {
+function card(title, percent, resetText, extraLine) {
   const pct = percent ?? 0;
   const display = pct >= 1 ? `${Math.round(pct)}%` : '<1%';
   return `
@@ -25,6 +25,37 @@ function card(title, percent, resetText) {
         <div class="progress-fill ${colorClass(pct, 'fill')}" style="width:${Math.min(pct,100)}%"></div>
       </div>
       ${resetText ? `<div class="reset-text">${resetText}</div>` : ''}
+      ${extraLine ? `<div class="extra-line">${extraLine}</div>` : ''}
+    </div>`;
+}
+
+function extraCard(extra) {
+  if (!extra.enabled) {
+    return `
+      <div class="usage-card disabled-card">
+        <div class="card-header">
+          <span class="card-title">Zusätzliche Nutzung</span>
+          <span class="badge-off">INAKTIV</span>
+        </div>
+        <div class="reset-text">Nicht aktiviert</div>
+      </div>`;
+  }
+  const pct = extra.percent ?? 0;
+  const display = pct >= 1 ? `${Math.round(pct)}%` : '<1%';
+  const amountLine = (extra.used && extra.limit)
+    ? `${extra.used} von ${extra.limit} verbraucht`
+    : '';
+  return `
+    <div class="usage-card">
+      <div class="card-header">
+        <span class="card-title">Zusätzliche Nutzung</span>
+        <span class="card-percent ${colorClass(pct, 'text')}">${display}</span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-fill ${colorClass(pct, 'fill')}" style="width:${Math.min(pct,100)}%"></div>
+      </div>
+      <div class="reset-text">${extra.resetText ?? ''}</div>
+      ${amountLine ? `<div class="extra-line">${amountLine}</div>` : ''}
     </div>`;
 }
 
@@ -42,7 +73,8 @@ async function render() {
   }
   content.innerHTML =
     card('Aktuelle Sitzung (5h)', usageData.session.percent, usageData.session.resetText) +
-    card('Wöchentlich (7 Tage)', usageData.weekly.percent, usageData.weekly.resetText);
+    card('Wöchentlich (7 Tage)', usageData.weekly.percent, usageData.weekly.resetText) +
+    extraCard(usageData.extra);
 }
 
 document.getElementById('refreshBtn').addEventListener('click', async () => {
